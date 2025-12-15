@@ -87,20 +87,33 @@
             box-shadow: 0 10px 15px rgba(0,0,0,0.1);
         }
 
-        /* ================= HEADER / HERO ================= */
+        /* ================= HEADER / HERO (MODIFIÉ POUR PHOTO) ================= */
         header {
             background-color: var(--primary-blue);
             color: white;
-            padding: 80px 0;
-            text-align: center;
+            padding: 60px 0 100px 0; /* Un peu plus d'espace en bas pour la découpe */
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
             margin-bottom: 50px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px; /* Espace aéré entre le texte et la photo */
+            flex-wrap: wrap; /* Pour que ça passe à la ligne sur mobile */
+        }
+
+        .header-text {
+            text-align: left;
+            max-width: 600px;
         }
 
         header h1 {
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 10px;
+            line-height: 1.2;
         }
 
         header .subtitle {
@@ -108,6 +121,36 @@
             font-weight: 300;
             color: var(--accent-yellow);
             letter-spacing: 1px;
+            margin-top: 0;
+        }
+
+        /* --- DESIGN DU HUBLOT (PHOTO DE PROFIL) --- */
+        .profile-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover; /* Recadre l'image proprement sans la déformer */
+            
+            /* Construction du style "Hublot" */
+            border: 4px solid white; /* 1. Joint d'étanchéité (blanc) */
+            box-shadow: 
+                0 0 0 6px var(--accent-yellow), /* 2. Cerclage de sécurité (jaune) */
+                0 0 0 12px var(--primary-blue), /* 3. Structure externe (bleu marine) */
+                0 15px 35px rgba(0,0,0,0.4),    /* 4. Ombre portée profonde pour le relief */
+                inset 0 0 20px rgba(0,0,0,0.3); /* 5. Ombre interne pour l'effet vitre */
+            
+            background-color: white;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05); /* Léger zoom avant au survol */
+            box-shadow: 
+                0 0 0 6px var(--accent-yellow),
+                0 0 0 12px var(--primary-blue),
+                0 20px 45px rgba(0,0,0,0.5), /* L'ombre grandit */
+                inset 0 0 10px rgba(0,0,0,0.1); /* L'ombre interne diminue (plus de lumière) */
         }
 
         /* ================= SECTION OBJECTIFS & IA FIT ================= */
@@ -259,7 +302,7 @@
             transform: translateY(-5px);
         }
 
-        /* NOUVEAU : Style pour les vraies images dans les cartes */
+        /* Style pour les vraies images dans les cartes */
         .project-card img {
             width: 100%;
             height: 180px;
@@ -456,6 +499,15 @@
                 font-size: 2rem;
             }
 
+            .header-content {
+                flex-direction: column-reverse; /* Photo au dessus du texte sur mobile */
+                text-align: center;
+            }
+
+            .header-text {
+                text-align: center;
+            }
+
             .chat-window {
                 width: 300px;
                 right: -10px; /* Ajustement mobile */
@@ -465,11 +517,22 @@
 </head>
 <body>
 
-    <!-- EN-TÊTE -->
+    <!-- EN-TÊTE MODIFIÉ AVEC PHOTO -->
     <header>
         <div class="container">
-            <h1>Baptiste MAIZEAUD</h1>
-            <p class="subtitle">BUT GEII | Futur Ingénieur en Énergie & Automatisme</p>
+            <div class="header-content">
+                <!-- Bloc Texte (Nom + Titre) -->
+                <div class="header-text">
+                    <h1>Baptiste MAIZEAUD</h1>
+                    <p class="subtitle">BUT GEII | Futur Ingénieur en Énergie & Automatisme</p>
+                </div>
+                
+                <!-- Bloc Photo de Profil -->
+                <div class="header-photo">
+                    <!-- IMAGE MISE À JOUR ICI -->
+                    <img src="1000015067.jpg" alt="Baptiste Maizeaud" class="profile-photo">
+                </div>
+            </div>
         </div>
     </header>
 
@@ -618,9 +681,9 @@
                     </div>
                 </article>
 
-                <!-- Projet 4 (NOUVEAU) : SAE Multimètre -->
+                <!-- Projet 4 (SAE Multimètre) -->
                 <article class="project-card">
-                    <!-- L'image s'affichera ici. Assurez-vous que le fichier est dans le même dossier -->
+                    <!-- Assurez-vous que l'image du multimètre est bien dans le dossier -->
                     <img src="1763544704584 (1).jpg" alt="Multimètre Numérique SAE">
                     
                     <div class="project-body">
@@ -666,7 +729,6 @@
     <footer>
         <div class="container">
             <h3>Me Contacter</h3>
-            <!-- MODIFICATION ICI -->
             <p style="margin: 15px 0;">baptiste.maizeaud@gmail.com</p>
             <div class="social-links">
                 <a href="https://www.linkedin.com/in/baptiste-maizeaud-118008384"><i class="fab fa-linkedin"></i></a>
