@@ -259,6 +259,14 @@
             transform: translateY(-5px);
         }
 
+        /* NOUVEAU : Style pour les vraies images dans les cartes */
+        .project-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover; /* Recadre l'image sans la déformer */
+            display: block;
+        }
+
         .project-img-placeholder {
             width: 100%;
             height: 180px;
@@ -610,6 +618,21 @@
                     </div>
                 </article>
 
+                <!-- Projet 4 (NOUVEAU) : SAE Multimètre -->
+                <article class="project-card">
+                    <!-- L'image s'affichera ici. Assurez-vous que le fichier est dans le même dossier -->
+                    <img src="1763544704584 (1).jpg" alt="Multimètre Numérique SAE">
+                    
+                    <div class="project-body">
+                        <h3>SAE Multimètre</h3>
+                        <p>Conception, soudure et calibration d'un multimètre numérique. Validation des chaînes de mesure (tension, courant).</p>
+                        <div class="tags">
+                            <span class="tag">Électronique</span>
+                            <span class="tag">Mesure</span>
+                        </div>
+                    </div>
+                </article>
+
             </div>
         </section>
 
@@ -643,7 +666,8 @@
     <footer>
         <div class="container">
             <h3>Me Contacter</h3>
-            <p style="margin: 15px 0;">baptiste.maizeaud@email.com</p>
+            <!-- MODIFICATION ICI -->
+            <p style="margin: 15px 0;">baptiste.maizeaud@gmail.com</p>
             <div class="social-links">
                 <a href="#"><i class="fab fa-linkedin"></i></a>
                 <a href="#"><i class="fab fa-github"></i></a>
@@ -656,7 +680,7 @@
     <!-- SCRIPT POUR GEMINI API -->
     <script>
         // ================= CONFIGURATION =================
-        const apiKey = ""; // La clé sera injectée par l'environnement
+        const apiKey = "AIzaSyASCwJZX_b_FrSO9TtTv1hhzAHJTn_VnS4"; // La clé sera injectée par l'environnement
         const MODEL_NAME = "gemini-2.5-flash-preview-09-2025";
         
         // Contexte global extrait du site pour l'IA
