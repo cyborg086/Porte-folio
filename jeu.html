@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-Jeu | Stabilisateur de Réseau</title>
+    
+    <!-- Mêmes imports que le portfolio pour la cohérence -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ================= VARIABLES (IDENTIQUES AU PORTFOLIO) ================= */
+        :root {
+            --primary-blue: #001f3f;
+            --accent-yellow: #FFD700;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-dark: #333333;
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ================= EN-TÊTE SIMPLIFIÉ ================= */
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            color: var(--accent-yellow);
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: opacity 0.3s;
+        }
+
+        .back-btn:hover { opacity: 0.8; }
+
+        /* ================= ZONE DE JEU (STYLE "CARTE") ================= */
+        .game-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--accent-yellow); /* Jaune pour le jeu */
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h1 { color: var(--primary-blue); margin-bottom: 10px; }
+        p { color: #666; margin-bottom: 20px; }
+
+        /* TABLEAU DE BORD DU JEU */
+        .stats-board {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+
+        .stat-box span {
+            color: var(--accent-yellow); /* Chiffres en jaune */
+            font-size: 1.5rem;
+        }
+
+        /* ZONE DE JEU INTERACTIVE */
+        #game-area {
+            width: 100%;
+            height: 400px;
+            background-color: var(--primary-blue); /* Fond bleu marine technique */
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            cursor: crosshair;
+            border: 2px solid #ddd;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            /* Grille technique en arrière-plan */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* CIBLES (NOEUDS ÉNERGÉTIQUES) */
+        .target {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-yellow);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent-yellow); /* Effet lumineux */
+            cursor: pointer;
+            transition: transform 0.1s;
+            animation: pulse 1s infinite;
+        }
+
+        .target:active { transform: scale(0.9); }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px var(--accent-yellow); }
+            50% { box-shadow: 0 0 20px var(--accent-yellow), 0 0 30px var(--accent-yellow); }
+            100% { box-shadow: 0 0 10px var(--accent-yellow); }
+        }
+
+        /* BOUTON DE DÉMARRAGE */
+        .start-btn {
+            background: linear-gradient(135deg, var(--primary-blue), #003366);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .start-btn:hover { transform: scale(1.05); }
+        .start-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+        /* MESSAGE DE FIN */
+        #game-message {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            min-height: 30px;
+        }
+
+        /* FOOTER SIMPLIFIÉ */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- EN-TÊTE -->
+    <header>
+        <div class="container">
+            <div style="font-weight: bold; font-size: 1.2rem;">Baptiste MAIZEAUD</div>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Retour au Portfolio
+            </a>
+        </div>
+    </header>
+
+    <!-- ZONE DE JEU -->
+    <section class="game-section">
+        <div class="game-card">
+            <h1><i class="fas fa-bolt"></i> Stabilisateur de Réseau</h1>
+            <p>Testez vos réflexes d'ingénieur. Cliquez sur les <strong>nœuds instables</strong> (jaunes) avant qu'ils ne disparaissent pour maintenir la production d'énergie.</p>
+            
+            <div class="stats-board">
+                <div class="stat-box">Score: <span id="score">0</span></div>
+                <div class="stat-box">Temps: <span id="time">30</span>s</div>
+                <div class="stat-box">Record: <span id="high-score">0</span></div>
+            </div>
+
+            <div id="game-area">
+                <!-- Les cibles apparaîtront ici -->
+                <div id="start-overlay" style="position:absolute; width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.5); font-size:2rem;">
+                    PRÊT ?
+                </div>
+            </div>
+
+            <button class="start-btn" onclick="startGame()" id="start-btn">Lancer la Simulation</button>
+            <div id="game-message"></div>
+        </div>
+    </section>
+
+    <footer>
+        © 2025 - Mini-Jeu Portfolio - Développé en HTML/CSS/JS Vanilla
+    </footer>
+
+    <script>
+        // VARIABLES DU JEU
+        let score = 0;
+        let timeLeft = 30;
+        let gameInterval;
+        let spawnInterval;
+        let isPlaying = false;
+        
+        // ÉLÉMENTS DOM
+        const scoreEl = document.getElementById('score');
+        const timeEl = document.getElementById('time');
+        const gameArea = document.getElementById('game-area');
+        const startBtn = document.getElementById('start-btn');
+        const messageEl = document.getElementById('game-message');
+        const highScoreEl = document.getElementById('high-score');
+        const overlay = document.getElementById('start-overlay');
+
+        // CHARGER LE MEILLEUR SCORE (LOCAL STORAGE)
+        let highScore = localStorage.getItem('portfolioGameHighScore') || 0;
+        highScoreEl.innerText = highScore;
+
+        // FONCTION DE DÉMARRAGE
+        function startGame() {
+            if (isPlaying) return;
+            isPlaying = true;
+            
+            // Reset
+            score = 0;
+            timeLeft = 30;
+            scoreEl.innerText = score;
+            timeEl.innerText = timeLeft;
+            messageEl.innerText = "";
+            messageEl.style.color = "#333";
+            startBtn.disabled = true;
+            startBtn.innerText = "Simulation en cours...";
+            overlay.style.display = 'none';
+            
+            // Nettoyer la zone
+            gameArea.innerHTML = '';
+
+            // Timer global (compte à rebours)
+            gameInterval = setInterval(() => {
+                timeLeft--;
+                timeEl.innerText = timeLeft;
+
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+
+            // Apparition des cibles (vitesse initiale)
+            spawnTarget();
+        }
+
+        // CRÉER UNE CIBLE
+        function spawnTarget() {
+            if (!isPlaying) return;
+
+            const target = document.createElement('div');
+            target.classList.add('target');
+
+            // Position aléatoire (en gardant une marge pour ne pas sortir du cadre)
+            const maxX = gameArea.clientWidth - 50;
+            const maxY = gameArea.clientHeight - 50;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            target.style.left = randomX + 'px';
+            target.style.top = randomY + 'px';
+
+            // Événement Clic
+            target.onclick = function() {
+                score++;
+                scoreEl.innerText = score;
+                this.remove(); // Supprime la cible cliquée
+                spawnTarget(); // En fait apparaître une nouvelle immédiatement (récompense la vitesse)
+            };
+
+            gameArea.appendChild(target);
+
+            // Auto-destruction si pas cliqué assez vite (pour ajouter du challenge)
+            // La difficulté augmente avec le score
+            let difficultyTime = 2000 - (score * 20); 
+            if (difficultyTime < 600) difficultyTime = 600; // Cap à 600ms min
+
+            setTimeout(() => {
+                if (target.parentNode) {
+                    target.remove();
+                    // Si on rate une cible, on en relance une autre quand même
+                    if(isPlaying) spawnTarget(); 
+                }
+            }, difficultyTime);
+        }
+
+        // FIN DU JEU
+        function endGame() {
+            isPlaying = false;
+            clearInterval(gameInterval);
+            
+            // Nettoyage final
+            gameArea.innerHTML = '';
+            overlay.style.display = 'flex';
+            overlay.innerText = "SIMULATION TERMINÉE";
+            
+            startBtn.disabled = false;
+            startBtn.innerText = "Relancer la Simulation";
+
+            // Gestion du record
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('portfolioGameHighScore', highScore);
+                highScoreEl.innerText = highScore;
+                messageEl.innerText = `🎉 Nouveau Record ! Réseau stabilisé avec excellence ! (${score} pts)`;
+                messageEl.style.color = "var(--primary-blue)";
+            } else {
+                messageEl.innerText = `Simulation terminée. Score final : ${score}`;
+            }
+        }
+    </script>
+</body>
+</html>
