@@ -344,6 +344,28 @@
             margin-right: 5px;
         }
 
+        /* NOUVEAU BOUTON JEU */
+        .game-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background-color 0.3s;
+            margin: 40px auto;
+        }
+
+        .game-btn:hover {
+            transform: translateY(-3px);
+            background-color: var(--accent-yellow);
+            color: var(--primary-blue);
+        }
+
         /* ================= CHATBOT IA ================= */
         .chat-widget {
             position: fixed;
@@ -698,6 +720,13 @@
 
             </div>
         </section>
+
+        <!-- LIEN VERS LE MINI-JEU (Ajout demandé) -->
+        <div class="container" style="text-align: center;">
+            <a href="jeu.html" class="game-btn">
+                <i class="fas fa-gamepad"></i> Tester mes réflexes (Mini-Jeu)
+            </a>
+        </div>
 
     </div>
 
