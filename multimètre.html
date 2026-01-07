@@ -42,7 +42,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px; /* Un peu plus large pour les deux colonnes */
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
@@ -59,32 +59,24 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: opacity 0.3s;
+            transition: all 0.3s ease;
             border: 1px solid var(--accent-yellow);
-            padding: 5px 15px;
-            border-radius: 20px;
+            padding: 8px 18px;
+            border-radius: 25px;
         }
 
-        .back-btn:hover { background-color: rgba(255, 215, 0, 0.1); }
-
-        /* ================= STYLE DES CARTES (COPIÉ DU PORTFOLIO) ================= */
-        .section-title {
-            text-align: center;
+        .back-btn:hover { 
+            background-color: var(--accent-yellow); 
             color: var(--primary-blue);
-            font-size: 2rem;
-            margin: 40px 0 30px;
-            position: relative;
-            padding-bottom: 10px;
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background-color: var(--accent-yellow);
-            margin: 10px auto 0;
-            border-radius: 2px;
+        /* ================= MISE EN PAGE GRILLÉE ================= */
+        .page-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px; /* Colonne principale et colonne compétences */
+            gap: 30px;
+            align-items: start;
+            margin-top: 40px; /* Ajout de marge après la suppression du titre */
         }
 
         .card {
@@ -92,114 +84,156 @@
             border-radius: 12px;
             padding: 40px;
             box-shadow: var(--shadow);
-            border-top: 4px solid var(--primary-blue);
+            border-top: 5px solid var(--primary-blue);
             margin-bottom: 30px;
         }
 
-        /* ================= SECTION HERO PROJET ================= */
-        .project-hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .project-hero img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 2px solid white;
-            object-fit: cover;
-            max-height: 400px;
-        }
-
-        .project-info h1 {
-            font-size: 2.5rem;
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-        }
-
-        .badge-container { margin-bottom: 20px; }
-
-        .badge {
-            display: inline-block;
-            background-color: var(--bg-color);
-            color: var(--primary-blue);
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-right: 5px;
-            border: 1px solid #ddd;
-        }
-
-        /* ================= DÉTAILS TECHNIQUES ================= */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        /* ================= PRÉSENTATION DU PROJET ================= */
+        .project-header-block {
+            display: flex;
+            flex-direction: column;
             gap: 30px;
         }
 
-        .tech-item h3 {
+        .project-info h1 {
+            font-size: 2.8rem;
             color: var(--primary-blue);
             margin-bottom: 15px;
-            border-bottom: 2px solid var(--accent-yellow);
-            display: inline-block;
-            padding-bottom: 5px;
         }
 
-        .tech-list { list-style: none; }
+        .project-image-full {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .project-image-full img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 4px solid white;
+            object-fit: cover;
+        }
+
+        .badge-container { margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(0, 31, 63, 0.05);
+            color: var(--primary-blue);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: 1px solid rgba(0, 31, 63, 0.1);
+        }
+
+        /* ================= DÉTAILS TECHNIQUES ================= */
+        .tech-list { list-style: none; margin-top: 15px; }
         .tech-list li {
-            margin-bottom: 10px;
-            padding-left: 25px;
+            margin-bottom: 12px;
+            padding-left: 28px;
             position: relative;
+            color: var(--text-dark);
         }
         .tech-list li::before {
-            content: '✓';
+            content: '\f058';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
             color: var(--accent-yellow);
-            font-weight: bold;
             position: absolute;
             left: 0;
+            top: 2px;
         }
 
-        /* ================= COMPÉTENCES ACQUISES ================= */
-        .skills-row {
+        .tech-sub-title {
+            color: var(--primary-blue);
+            font-size: 1.4rem;
+            margin: 25px 0 15px;
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-            text-align: center;
-            margin-top: 20px;
+            align-items: center;
+            gap: 10px;
         }
 
-        .skill-circle {
-            background-color: var(--bg-color);
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+        .tech-sub-title i { color: var(--accent-yellow); }
+
+        /* ================= COMPÉTENCES (COLONNE DE DROITE) ================= */
+        .sidebar-title {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-yellow);
+            padding-bottom: 10px;
+        }
+
+        .skills-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .skill-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            border: 3px solid var(--primary-blue);
-            transition: transform 0.3s;
+            text-align: center;
+            gap: 10px;
+            padding: 15px;
+            background-color: var(--bg-color);
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
         }
 
-        .skill-circle:hover { transform: scale(1.05); border-color: var(--accent-yellow); }
-        .skill-circle i { font-size: 1.8rem; color: var(--primary-blue); margin-bottom: 5px; }
-        .skill-circle span { font-size: 0.85rem; font-weight: bold; color: var(--text-dark); }
+        .skill-item:hover {
+            border-color: var(--accent-yellow);
+            transform: scale(1.03);
+            background-color: white;
+        }
+
+        .skill-icon-box {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-blue);
+            color: var(--accent-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .skill-label {
+            font-weight: bold;
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            line-height: 1.2;
+        }
 
         /* ================= FOOTER ================= */
         footer {
             background-color: var(--primary-blue);
             color: white;
             text-align: center;
-            padding: 30px 0;
-            margin-top: 60px;
+            padding: 40px 0;
+            margin-top: 80px;
         }
 
-        @media (max-width: 768px) {
-            .project-hero { grid-template-columns: 1fr; }
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 1000px) {
+            .page-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar-card {
+                order: 2;
+            }
+            .main-content {
+                order: 1;
+            }
         }
     </style>
 </head>
@@ -216,99 +250,97 @@
     </header>
 
     <div class="container">
-
-        <!-- 1. PRÉSENTATION DU PROJET (HERO) -->
-        <h2 class="section-title">Étude de Cas : SAE Multimètre</h2>
         
-        <div class="card">
-            <div class="project-hero">
-                <div class="project-image">
-                    <!-- IMAGE DU PROJET (Celle que vous m'avez fournie) -->
-                    <img src="1763544704584 (1).jpg" alt="Multimètre réalisé en SAE">
-                </div>
-                <div class="project-info">
-                    <h1>Multimètre Numérique</h1>
-                    <div class="badge-container">
-                        <span class="badge">Électronique Analogique</span>
-                        <span class="badge">Microcontrôleur</span>
-                        <span class="badge">Instrumentation</span>
-                    </div>
-                    <p style="text-align: justify;">
-                        Dans le cadre de ma formation BUT GEII, j'ai conçu et réalisé un multimètre numérique complet. Ce projet transversal visait à valider la chaîne d'acquisition de données, depuis le capteur physique jusqu'à l'affichage numérique, en passant par le conditionnement du signal et le traitement logiciel.
-                    </p>
-                    <br>
-                    <p><strong>Objectif :</strong> Réaliser un appareil de mesure fiable, capable de mesurer tension, courant et résistance avec précision.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 2. DÉTAILS TECHNIQUES & RÉALISATION -->
-        <div class="card">
-            <div class="tech-grid">
-                
-                <!-- Colonne Gauche : Conception -->
-                <div class="tech-item">
-                    <h3><i class="fas fa-pencil-ruler"></i> Conception & Hardware</h3>
-                    <p>La partie matérielle a nécessité une étude rigoureuse pour garantir la sécurité et la précision.</p>
-                    <ul class="tech-list" style="margin-top: 15px;">
-                        <li><strong>Conditionnement :</strong> Ponts diviseurs et amplificateurs opérationnels pour adapter les niveaux de tension (0-5V pour l'ADC).</li>
-                        <li><strong>Routage PCB :</strong> Conception de la carte électronique (KiCad/Eagle) en minimisant le bruit électromagnétique.</li>
-                        <li><strong>Soudure :</strong> Assemblage des composants traversants et CMS sur le circuit imprimé.</li>
-                        <li><strong>Affichage :</strong> Intégration d'un écran LCD/OLED pour la lecture des valeurs en temps réel.</li>
-                    </ul>
-                </div>
-
-                <!-- Colonne Droite : Logiciel & Tests -->
-                <div class="tech-item">
-                    <h3><i class="fas fa-code"></i> Logiciel & Calibration</h3>
-                    <p>Le cerveau du système repose sur un microcontrôleur programmé pour convertir les signaux en valeurs physiques lisibles.</p>
-                    <ul class="tech-list" style="margin-top: 15px;">
-                        <li><strong>Programmation C/C++ :</strong> Développement du firmware pour la gestion de l'ADC (Analog to Digital Converter).</li>
-                        <li><strong>Calibration :</strong> Étalonnage du système par comparaison avec des appareils de laboratoire certifiés.</li>
-                        <li><strong>Traitement :</strong> Moyennage des mesures (lissage) pour stabiliser l'affichage.</li>
-                        <li><strong>Gestion des calibres :</strong> Commutation automatique ou manuelle des plages de mesure.</li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- 3. COMPÉTENCES VALIDÉES -->
-        <h2 class="section-title">Compétences Développées</h2>
-        <div class="card">
-            <p style="text-align: center; margin-bottom: 20px;">Ce projet a permis de valider plusieurs Acquis d'Apprentissage (AC) essentiels du BUT GEII :</p>
+        <div class="page-grid">
             
-            <div class="skills-row">
-                <div class="skill-circle">
-                    <i class="fas fa-microchip"></i>
-                    <span>Conception<br>Électronique</span>
+            <!-- COLONNE DE GAUCHE : LE PROJET -->
+            <div class="main-content">
+                
+                <div class="card">
+                    <div class="project-header-block">
+                        <div class="project-info">
+                            <h1>Multimètre Numérique</h1>
+                            <div class="badge-container">
+                                <span class="badge">Électronique Analogique</span>
+                                <span class="badge">Microcontrôleur (C++)</span>
+                                <span class="badge">CAO Électronique</span>
+                                <span class="badge">Instrumentation</span>
+                            </div>
+                            <p style="text-align: justify; font-size: 1.1rem; color: var(--text-light);">
+                                Dans le cadre de ma formation BUT GEII, j'ai conçu et réalisé un multimètre numérique complet. Ce projet transversal visait à valider la chaîne d'acquisition de données, depuis le capteur physique jusqu'à l'affichage numérique.
+                            </p>
+                        </div>
+
+                        <div class="project-image-full">
+                            [Image du Multimètre numérique réalisé en SAE]
+                            <img src="1763544704584 (1).jpg" alt="Multimètre réalisé en SAE">
+                        </div>
+
+                        <div class="project-details">
+                            <p style="color: var(--primary-blue); font-weight: bold; font-size: 1.1rem; margin-bottom: 20px;">
+                                <i class="fas fa-bullseye"></i> Objectif : Réaliser un appareil de mesure industriel fiable et certifié.
+                            </p>
+
+                            <h3 class="tech-sub-title"><i class="fas fa-microchip"></i> Architecture & Hardware</h3>
+                            <ul class="tech-list">
+                                <li><strong>Conditionnement :</strong> Ponts diviseurs pour adapter les niveaux de tension (0-5V).</li>
+                                <li><strong>PCB :</strong> Conception multicouches (Front et Bottom) optimisée contre le bruit.</li>
+                                <li><strong>Soudure :</strong> Assemblage manuel des composants CMS et traversants.</li>
+                                <li><strong>Affichage :</strong> afficheur 7 segments pour un affichage précis en temps réel.</li>
+                            </ul>
+
+                            <h3 class="tech-sub-title"><i class="fas fa-terminal"></i> Logiciel & Calibration</h3>
+                            <ul class="tech-list">
+                                <li><strong>Arduino :</strong> Gestion des modes, des calibres,  des calculs et  de l'affichage.</li>
+                                <li><strong>Étalonnage :</strong> Procédure de calibration en comparant notre Multimètre et un réel.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-circle">
-                    <i class="fas fa-burn"></i>
-                    <span>Soudure &<br>Assemblage</span>
-                </div>
-                <div class="skill-circle">
-                    <i class="fas fa-laptop-code"></i>
-                    <span>Code<br>Embarqué</span>
-                </div>
-                <div class="skill-circle">
-                    <i class="fas fa-ruler-combined"></i>
-                    <span>Mesure &<br>Précision</span>
-                </div>
-                <div class="skill-circle">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Validation<br>Fonctionnelle</span>
+
+            </div>
+
+            <!-- COLONNE DE DROITE : COMPÉTENCES -->
+            <div class="sidebar-card">
+                <div class="card" style="position: sticky; top: 100px;">
+                    <h3 class="sidebar-title">Compétences</h3>
+                    
+                    <div class="skills-sidebar">
+                        <div class="skill-item">
+                            <div class="skill-icon-box"><i class="fas fa-project-diagram"></i></div>
+                            <div class="skill-label">Conception<br>Système</div>
+                        </div>
+                        <div class="skill-item">
+
+                            <div class="skill-icon-box"><i class="fas fa-fire"></i></div>
+                            <div class="skill-label">Soudures</div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon-box"><i class="fas fa-laptop-code"></i></div>
+                            <div class="skill-label">Développement<br>Embarqué</div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon-box"><i class="fas fa-ruler"></i></div>
+                            <div class="skill-label">Métrologie &<br>Précision</div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon-box"><i class="fas fa-clipboard-check"></i></div>
+                            <div class="skill-label">Validation &<br>Tests</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 
     <!-- FOOTER -->
     <footer>
-        <div class="container">
+        <div class="container" style="flex-direction: column; gap: 10px;">
             <p>© 2025 - Portfolio Ingénieur | Baptiste Maizeaud</p>
-            <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.7;">Projet réalisé dans le cadre du BUT GEII</p>
+            <p style="font-size: 0.85rem; opacity: 0.7;">
+                Étudiant en BUT GEII - Option Énergie & Systèmes Embarqués
+            </p>
         </div>
     </footer>
 
